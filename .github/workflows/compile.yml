@@ -16,6 +16,7 @@ jobs:
         repository: 'microsoft/DirectXShaderCompiler'
         ref: 'v1.8.2407'
         path: 'dxc'
+        submodules: true
     - uses: actions/checkout@v4
       with:
         repository: ${{ github.repository }}
