@@ -26,7 +26,7 @@ Start-Process -FilePath "cmake" -ArgumentList $cmake_conf -Wait -NoNewWindow
 $cmake_bu = @("--build", $build_dir, "--config", "Release")
 Start-Process -FilePath "cmake" -ArgumentList $cmake_bu -Wait -NoNewWindow
 
-tree /F
+tree $build_dir /F /A
 
 $bin_dir = "dxc_binary"
 New-Item -Path $bin_dir -ItemType Directory
