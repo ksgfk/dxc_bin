@@ -1,0 +1,29 @@
+name: 'Compile'
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        # os: [windows-latest, ubuntu-latest, macos-13, macos-latest]
+        os: [windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        repository: 'microsoft/DirectXShaderCompiler'
+        ref: 'v1.8.2407'
+        path: 'dxc'
+    - uses: actions/checkout@v4
+      with:
+        repository: ${{ github.repository }}
+        path: 'build'
+    - name: Build
+      run: pwsh -File ${{github.workspace}}/build/compile.ps1 -dxc ${{github.workspace}}/dxc
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        if-no-files-found: error
+        path: ${{github.workspace}}/build/dxc_binary/*.zip
