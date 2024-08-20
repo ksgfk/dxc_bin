@@ -21,10 +21,12 @@ $cmake_conf.Add("-DCMAKE_BUILD_TYPE=Release")
 if ($IsWindows) {
     $cmake_conf.AddRange(@("-T", "ClangCL"))
 }
-Start-Process -FilePath "cmake" -ArgumentList $cmake_conf -Wait
+Start-Process -FilePath "cmake" -ArgumentList $cmake_conf -Wait -NoNewWindow
 
 $cmake_bu = @("--build", $build_dir, "--config", "Release")
-Start-Process -FilePath "cmake" -ArgumentList $cmake_bu -Wait
+Start-Process -FilePath "cmake" -ArgumentList $cmake_bu -Wait -NoNewWindow
+
+tree /F
 
 $bin_dir = "dxc_binary"
 New-Item -Path $bin_dir -ItemType Directory
